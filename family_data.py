@@ -6,7 +6,7 @@ family_data = {
         "parents": ["Sita Devi", "Kiran Sharma"],
         "siblings": ["Mira Sharma"],
         "spouse": ["Otto Emmersohn"],
-        "children": []  #"Hans Emmersohn", "Anjali Emmersohn"
+        "children": []
     },
     "Sita Devi": {
         "birth_date": "15-03-1920",
@@ -88,7 +88,7 @@ family_data = {
         "death_date": None,
         "parents": ["Walter Emmersohn", "Anna Emmersohn"],
         "spouse": ["Cornelia Emmersohn"],
-        "children": ["Luke Emmersohn", "Alex Emmersohn"],
+        "children": [],
         "siblings": ["Lucy Emmersohn", "Eric Emmersohn"]
     },
     "Walter Emmersohn": {
