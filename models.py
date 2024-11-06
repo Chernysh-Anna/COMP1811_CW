@@ -27,7 +27,7 @@ class FamilyTree:
             return person.parents                  #shoul return list of names
         return []
 
-    def get_grandchildren(self, name):            #break down , not shore how to do it in more simple way
+    def get_grandchildren(self, name):            #break down , how to do it in more simple way
         person = self.find_person(name)
         if not person:                          #person not in thise databasse
             return []
@@ -38,7 +38,7 @@ class FamilyTree:
                 grandchildren.extend(child.children)
         return grandchildren
 
-    def get_close_relatives(self, name):    #break down , not shore how to do it in more simple way
+    def get_close_relatives(self, name):    #break down ,how to do it in more simple way
         person = self.find_person(name)
         if not person:
             return []
@@ -79,15 +79,42 @@ class FamilyTree:
                         cousins.extend(sibling.children) #add all children to our list(cousin)
         return cousins
 
+    def get_bdays(self):
+        birthdays = {name: person.birth_date.strftime("%d-%m-%Y") for name, person in self.person.items()} #create dictanory thif bday
+        return birthdays
+
+    def get_bdays_calendar(self):
+        birthday_calendar = {}
+        #create dictanory date : [names]
+        for name, person in self.person.items():
+            day_month = person.birth_date.strftime("%d-%m")
+            if day_month not in birthday_calendar:
+                birthday_calendar[day_month] = []
+            birthday_calendar[day_month].append(name)
+
+        # sort
+        sorted_calendar = {date: birthday_calendar[date] for date in sorted(birthday_calendar.keys())}
+        return sorted_calendar
 
 
 
 
+
+
+#must be deleted
+'''
 family_data = {
     "Alice": {"birth_date": "01-01-1980", "parents": ["Bob"], "siblings": [], "spouse": [], "children": []},
     "Bob": {"birth_date": "15-05-1975", "parents": ["bili","illy"], "siblings": ['Wob'], "spouse": [], "children": []},
     "Wob": {"birth_date": "15-05-1975", "parents": ["bili","illy"], "siblings": ['Bob'], "spouse": [], "children": ["BonBon"]}
 }
-family = FamilyTree(family_data)
+family_tree = FamilyTree(family_data)
 
-print(family.get_cousins("Alice"))
+#списку днів народження всіх членів сім'ї
+birthdays = family_tree.get_bdays()
+print("Список днів народження:", birthdays)
+
+# календар днів народження
+sorted_calendar = family_tree.get_bdays_calendar()
+print("Відсортований календар днів народження:", sorted_calendar)
+'''
