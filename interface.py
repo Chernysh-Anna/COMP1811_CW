@@ -1,7 +1,5 @@
 import tkinter as tk
-from models import FamilyTree
 from database import load_family_data
-from utils import calculate_average_age_at_death, sort_birthdays, count_children, average_children_count
 
 class FamilyTreeApp:
     def __init__(self, root):

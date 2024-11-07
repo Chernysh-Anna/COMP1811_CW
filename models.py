@@ -1,5 +1,5 @@
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
+from dateutil import relativedelta
 # import datetime to calculation about dates in future
 class Person:
     def __init__(self, name, birth_date, death_date=None, parents=None, siblings=None, spouse=None, children=None): #<--add to atributes =None, to minimize possible KeyErrors
@@ -81,7 +81,7 @@ class FamilyTree:
         return cousins
 
     #may go to utils
-    def get_bdays(self):
+    """def get_bdays(self):
         birthdays = {name: person.birth_date.strftime("%d-%m-%Y") for name, person in self.person.items()} #create dictanory thif bday
         return birthdays
 
@@ -97,6 +97,7 @@ class FamilyTree:
         # sort
         sorted_calendar = {date: birthday_calendar[date] for date in sorted(birthday_calendar.keys())}
         return sorted_calendar
+        
 #---------
 #F3
     def get_children_count(self):
@@ -119,10 +120,52 @@ class FamilyTree:
                 deceased_count += 1
         average_age = total_age / deceased_count
         return average_age
+        """
 #-----------------------
-class FamilyStatistics:
-    #may use separete for F3
-   pass
+class Statistics:
+    def __init__(self, family_tree):
+        self.family_tree = family_tree  # Reference to the FamilyTree instance
+
+    def get_bdays(self):
+        birthdays = {name: person.birth_date.strftime("%d-%m-%Y") for name, person in self.person.items()} #create dictanory thif bday
+        return birthdays
+
+    def get_bdays_calendar(self):
+        birthday_calendar = {}
+        #create dictanory date : [names]
+        for name, person in self.person.items():
+            day_month = person.birth_date.strftime("%d-%m")
+            if day_month not in birthday_calendar:
+                birthday_calendar[day_month] = []
+            birthday_calendar[day_month].append(name)
+
+        # sort
+        sorted_calendar = {date: birthday_calendar[date] for date in sorted(birthday_calendar.keys())}
+        return sorted_calendar
+
+    #-----------
+
+    def get_children_count(self):
+        # Returns a dictionary with each person's name and their number of children
+        return {name: len(person.children) for name, person in self.person.items()}
+
+    def get_average_children_per_person(self):
+        total_children = sum(len(person.children) for person in self.person.values())
+        total_people = len(self.person)
+        avarage = total_children / total_people
+        return avarage
+
+    def get_average_age_at_death(self):
+        total_age = 0
+        deceased_count = 0
+        for person in self.person.values():
+            if person.death_date:  # Only who have a recorded death date
+                age_at_death = relativedelta(person.death_date, person.birth_date).years
+                total_age += age_at_death
+                deceased_count += 1
+        average_age = total_age / deceased_count
+        return average_age
+
 
 
 
