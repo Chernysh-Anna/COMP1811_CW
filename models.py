@@ -1,5 +1,5 @@
 from datetime import datetime
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
 # import datetime to calculation about dates in future
 class Person:
     def __init__(self, name, birth_date, death_date=None, parents=None, siblings=None, spouse=None, children=None): #<--add to atributes =None, to minimize possible KeyErrors
@@ -63,7 +63,8 @@ class FamilyTree:
         person = self.find_person(name)
         if person:
             return person.siblings
-        return []
+        else:
+            return []
 
     def get_cousins(self, name):
         person = self.find_person(name)
@@ -73,98 +74,58 @@ class FamilyTree:
         cousins = []
         for parent_name in parents:
             parent = self.find_person(parent_name)  #get info about parents
-            if parent:
+            if parent:   # no unexpected error if database not fully complete     -|but our database is perfect
                 for sibling_name in parent.siblings:
                     sibling = self.find_person(sibling_name) #get info about parents siblings
                     if sibling:
                         cousins.extend(sibling.children) #add all children to our list(cousin)
         return cousins
 
-    #may go to utils
-    """def get_bdays(self):
-        birthdays = {name: person.birth_date.strftime("%d-%m-%Y") for name, person in self.person.items()} #create dictanory thif bday
-        return birthdays
-
-    def get_bdays_calendar(self):
-        birthday_calendar = {}
-        #create dictanory date : [names]
-        for name, person in self.person.items():
-            day_month = person.birth_date.strftime("%d-%m")
-            if day_month not in birthday_calendar:
-                birthday_calendar[day_month] = []
-            birthday_calendar[day_month].append(name)
-
-        # sort
-        sorted_calendar = {date: birthday_calendar[date] for date in sorted(birthday_calendar.keys())}
-        return sorted_calendar
-        
-#---------
-#F3
-    def get_children_count(self):
-        # Returns a dictionary with each person's name and their number of children
-        return {name: len(person.children) for name, person in self.person.items()}
-
-    def get_average_children_per_person(self):
-        total_children = sum(len(person.children) for person in self.person.values())
-        total_people = len(self.person)
-        avarage = total_children / total_people
-        return avarage
-
-    def get_average_age_at_death(self):
-        total_age = 0
-        deceased_count = 0
-        for person in self.person.values():
-            if person.death_date:  # Only who have a recorded death date
-                age_at_death = relativedelta(person.death_date, person.birth_date).years
-                total_age += age_at_death
-                deceased_count += 1
-        average_age = total_age / deceased_count
-        return average_age
-        """
 #-----------------------
+
 class Statistics:
-    def __init__(self, family_tree):
-        self.family_tree = family_tree  # Reference to the FamilyTree instance
+    def __init__(self, family_tree):  #data may base on info from class FamilyTree
+        self.family_tree = family_tree
 
     def get_bdays(self):
-        birthdays = {name: person.birth_date.strftime("%d-%m-%Y") for name, person in self.person.items()} #create dictanory thif bday
+        birthdays = {}
+        for name, person in self.family_tree.person.items():
+            birthdays[name] = person.birth_date.strftime("%d-%m-%Y")
         return birthdays
 
     def get_bdays_calendar(self):
         birthday_calendar = {}
-        #create dictanory date : [names]
-        for name, person in self.person.items():
+        for name, person in self.family_tree.person.items():
             day_month = person.birth_date.strftime("%d-%m")
             if day_month not in birthday_calendar:
                 birthday_calendar[day_month] = []
             birthday_calendar[day_month].append(name)
-
-        # sort
         sorted_calendar = {date: birthday_calendar[date] for date in sorted(birthday_calendar.keys())}
         return sorted_calendar
 
-    #-----------
+    def get_children_count(self):  # get number of children for each person
+        children_count = {}
+        for name, person in self.family_tree.person.items():
+            children_count[name] = len(person.children)
+        return children_count
 
-    def get_children_count(self):
-        # Returns a dictionary with each person's name and their number of children
-        return {name: len(person.children) for name, person in self.person.items()}
+    def get_average_children_pp(self):   #get average children per person
+        total_children = 0
+        for person in self.family_tree.person.values():
+            total_children += len(person.children)
 
-    def get_average_children_per_person(self):
-        total_children = sum(len(person.children) for person in self.person.values())
-        total_people = len(self.person)
-        avarage = total_children / total_people
-        return avarage
+        total_people = len(self.family_tree.person)
+        return total_children // total_people
 
-    def get_average_age_at_death(self):
+    def get_average_age(self):  #get average age at death
         total_age = 0
-        deceased_count = 0
-        for person in self.person.values():
-            if person.death_date:  # Only who have a recorded death date
-                age_at_death = relativedelta(person.death_date, person.birth_date).years
+        person_count = 0
+        for person in self.family_tree.person.values():  #self.person.values() doesnt work ... Why :|
+            if person.death_date:
+                age_at_death = relativedelta(person.death_date, person.birth_date).years   #relativedelta + .years = numerical output
                 total_age += age_at_death
-                deceased_count += 1
-        average_age = total_age / deceased_count
-        return average_age
+                person_count += 1
+        return total_age // person_count  #should we check situation if person_count is 0?
 
 
 

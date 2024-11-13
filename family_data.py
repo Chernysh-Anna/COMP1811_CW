@@ -1,7 +1,7 @@
 family_data = {
     # M
     "Cornelia Emmersohn": {
-        "birth_date": "12-05-1950",
+        "birth_date": "12-05-1966",
         "death_date": None,
         "parents": ["Sita Devi", "Kiran Sharma"],
         "siblings": ["Mira Sharma"],
@@ -30,7 +30,7 @@ family_data = {
         "parents": ["Sita Devi", "Kiran Sharma"],
         "siblings": ["Cornelia Emmersohn"],
         "spouse": ["Ajit Patel"],
-        "children": [] #"Raj Patel", "Nina Patel"
+        "children": []
     },
     "Arjun Sharma": {
         "birth_date": "08-08-1891",
@@ -55,7 +55,7 @@ family_data = {
         "parents": ["Anjali Patel", "Vikram Patel"],
         "siblings": [],
         "spouse": ["Mira Sharma"],
-        "children": [] #"Raj Patel", "Nina Patel"
+        "children": []
     },
     "Lalita Devi": {
         "birth_date": "18-01-1885",
@@ -123,6 +123,23 @@ family_data = {
         "spouse": ["Emma Jones"],
         "children": ["Jack Emmersohn"]
     },
+    "Emma Jones": {
+        "birth_date": "03-02-1982",
+        "death_date": None,
+        "parents": [],
+        "siblings": [],
+        "spouse": ["Eric Emmersohn"],
+        "children": ["Jack Emmersohn"]
+    },
+    "Jack Emmersohn": {
+        "birth_date": "05-12-2009",
+        "death_date": None,
+        "parents": ["Eric Emmersohn","Emma Jones"],
+        "siblings": [],
+        "spouse": [],
+        "children": []
+    },
+
     "Kevin Emmersohn": {
         "birth_date": "24-07-1894",
         "death_date": "08-04-1977",
@@ -136,7 +153,16 @@ family_data = {
         "death_date": "05-02-1974",
         "parents": [],
         "siblings": [],
+        "children": ["Walter Emmersohn", "Ryan Emmersohn"],
         "spouse": ["Kevin Emmersohn"]
+    },
+    "Ryan Emmersohn": {
+        "birth_date": "25-06-1930",
+        "death_date": "07-03-2001",
+        "parents": ["Kevin Emmersohn", "Angela Halpert"],
+        "siblings": ["Walter Emmersohn"],
+        "children": [],
+        "spouse": [],
     },
     "Peter Scott": {
         "birth_date": "05-07-1893",

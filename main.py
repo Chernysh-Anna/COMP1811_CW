@@ -1,7 +1,7 @@
 import tkinter as tk
-from interface import FamilyTreeApp
+from interface import AppInterface
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = FamilyTreeApp(root)
+    app = AppInterface(root)
     root.mainloop()
