@@ -60,15 +60,6 @@ This project provides a comprehensive family tree management and analysis system
    pip install -r requirements.txt
    ```
 
-## Usage
-
-### Loading Family Data
-To load family data and initialize the family tree and statistics:
-```python
-from family_tree import load_family_data
-
-family_tree, statistics = load_family_data()
-```
 
 ### Example Operations
 - **Find a Person**:
